@@ -1,7 +1,7 @@
 import express from 'express';
 import { checkDB, syncDB } from "./config/db.ts";
 import models from "./models/index.ts";
-import seedAll from "./seed/seed.ts";
+import seedAll from "./models/seed/seed.ts";
 
 const PORT = process.env.APP_PORT || 3000;
 const app = express();

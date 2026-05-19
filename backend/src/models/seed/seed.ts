@@ -1,12 +1,12 @@
-import models from "../models/index.ts";
-import db from "../config/db.ts";
+import models from "../index.ts";
+import db from "../../config/db.ts";
 import bcrypt from 'bcryptjs';
 
 const ADMIN_CONFIG = {
     user_id: 1,
     user_name: process.env.ADMIN_USERNAME,
     user_email: process.env.ADMIN_EMAIL,
-    user_password: await bcrypt.hash(process.env.ADMIN_PASSWORD, 10),
+    user_password: await bcrypt.hash(process.env.ADMIN_PASSWORD || "adminuserpassword", 10),
     when_created: new Date(),
     is_admin: true
 };
