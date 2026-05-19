@@ -1,0 +1,15 @@
+# allow execution for tdbo.sh
+chmod +x ./tdbo.sh
+
+# create an alias to use tdbo as a program with bin bash
+sudo ln -s "$(pwd)/tdbo.sh" /usr/local/bin/tdbo
+
+# Usage example:
+# tdbo { install <DB_USER> <DB_PASS> | rebuild | up | down | pgadmin { up | down } }
+
+tdbo install mydbuser mydbpassword # installs depedencies and set up .env basic settings. IMPORTANT: this does not replace all other fields such as JWT_SECRET or initial Admin account settings. You MUST set those fields beforehand.
+tdbo rebuild # rebuilds from scratch the docker containers for dev testing.
+tdbo up # turns on docker compose with no recreate
+tdbo down # turns off docker compose
+tdbo pgadmin up # creates pgadmin container and opens the browser once healthy
+tdbo pgadmin down # turns off pgadmin container.
