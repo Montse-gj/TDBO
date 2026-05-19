@@ -87,3 +87,5 @@ yarn-error.log*
 *.vitepress/dist
 *.yarn-integrity
 *.zip
+.vite 
+docker-compose.override.yml
