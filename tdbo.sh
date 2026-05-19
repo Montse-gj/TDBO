@@ -20,13 +20,16 @@ case "${1:-}" in
     docker compose up --build
     ;;
 
-  shutdown)
+  down)
     docker compose down -v
     sudo rm -rf backend/db
     ;;
-
   up)
-    docker compose up --build
+    if docker compose ps --status=running --quiet | grep -q .; then
+      echo "docker compose is already running."
+      exit 0
+    fi
+    docker compose up --build --no-recreate
     ;;
 
   pgadmin)
@@ -76,7 +79,7 @@ case "${1:-}" in
     ;;
 
   *)
-    echo "Usage: $0 {install|rebuild|shutdown|up|pgadmin {up|down}}" >&2
+    echo "Usage: $0 {install|rebuild|down|up|pgadmin {up|down}}" >&2
     exit 1
     ;;
 esac
