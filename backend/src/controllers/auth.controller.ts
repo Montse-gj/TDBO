@@ -1,8 +1,8 @@
 
 // src/controllers/authController.ts
-import { Request, Response } from 'express';
-import db from '../models/index.js';
-import bcrypt from 'bcrypt';
+import type { Request, Response } from 'express';
+import db from '../models/index.ts';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 // Interfaz que define la estructura de los datos que vamos a guardar dentro del Token JWT
@@ -68,7 +68,7 @@ export const AuthController = {
 
       // 3. Buscamos al usuario en la base de datos a través de su email
       const user = await db.User.findOne({ where: { user_email: email } });
-      
+
       // Si el usuario no existe, o por algún motivo no tiene contraseña, denegamos el acceso
       if (!user || !user.user_password) {
         return res.status(400).json({ error: 'Credenciales inválidas' });
