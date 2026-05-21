@@ -15,7 +15,8 @@ export default (sequelize: Sequelize) => {
             expense_id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
-                allowNull: false
+                allowNull: false,
+                autoIncrement: true
             },
             group_id: {
                 type: DataTypes.INTEGER,

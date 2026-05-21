@@ -41,6 +41,8 @@ const seedAll = async () => {
     ], { ignoreDuplicates: true });
 
     await db.query(`SELECT setval(pg_get_serial_sequence('users', 'user_id'), COALESCE((SELECT MAX(user_id) FROM users), 1))`);
+    await db.query(`SELECT setval(pg_get_serial_sequence('expenses', 'expense_id'), COALESCE((SELECT MAX(expense_id) FROM expenses), 1))`);
+    await db.query(`SELECT setval(pg_get_serial_sequence('groups', 'group_id'), COALESCE((SELECT MAX(group_id) FROM groups), 1))`);
 }
 
 export default seedAll;
