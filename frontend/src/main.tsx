@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client';
-import { RouterProvider } from 'react-router';
+import { RouterProvider } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext.tsx';
 import router from './router.tsx';
 import './styles/index.css';
 
@@ -9,5 +10,7 @@ if (!rootElement) {
 }
 
 createRoot(rootElement).render(
+  <AuthProvider> 
   <RouterProvider router={router} />
+  </AuthProvider>
 );
