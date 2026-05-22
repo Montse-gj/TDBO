@@ -15,6 +15,7 @@ export default (sequelize: Sequelize) => {
             user_id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
+                autoIncrement: true,
                 allowNull: false
             },
             user_name: {
