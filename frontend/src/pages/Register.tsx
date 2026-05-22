@@ -1,0 +1,95 @@
+import { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
+// import { NavBar } from "../components/NavBar";
+
+
+export const Register = () => {
+    const navigate = useNavigate();
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+    const [localError, setLocalError] = useState("");
+
+    const { register, loading, error, user } = useAuthContext();
+
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user, navigate]);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLocalError("");
+
+        if (!name || !email || !password || !confirmPassword) {
+            setLocalError("Por favor, complete todos los campos");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            setLocalError("Las contraseñas no coinciden");
+            return;
+        }
+
+        await register(name, email, password);
+    };
+
+    const displayError = localError || error;
+
+    return (
+        <>
+           
+            <div className="">
+                <div className="">
+                    <h1>Registrarse</h1>
+                    {displayError && <p>{displayError}</p>}
+                    <form onSubmit={handleSubmit}>
+                        <div className="">
+                            <label htmlFor="name">Nombre:</label>
+                            <input type="text" id="name" value={name} onChange={(e) => {
+                                setName(e.target.value)
+                                setLocalError("")
+                                }} 
+                                disabled={loading} />
+                        </div>
+                        <div className="">
+                            <label htmlFor="email">Email:</label>
+                            <input type="email" id="email" value={email} onChange={(e) => {
+                                setEmail(e.target.value)
+                                setLocalError("")
+                                }} 
+                                disabled={loading} />
+                        </div>
+                        <div className="">
+                            <label htmlFor="password">Contraseña:</label>
+                            <input type="password" id="password" value={password} onChange={(e) => {
+                                setPassword(e.target.value)
+                            setLocalError("")
+                            }}
+                            disabled={loading} />
+                        </div>
+                        <div className="">
+                            <label htmlFor="confirmPassword">Confirmar contraseña:</label>
+                            <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => {
+                                setConfirmPassword(e.target.value)
+                            setLocalError("")
+                            }}
+                            disabled={loading} />
+                        </div>
+                        <button className="" type="submit" disabled={loading}>Registro</button>
+                       </form> 
+                        <p>
+                            ¿Ya tienes una cuenta? <Link to="/login">Inicia sesión</Link>
+                        </p>
+                    
+                </div>
+            </div>
+        </>
+    );
+};
+export default Register;
