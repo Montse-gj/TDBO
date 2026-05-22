@@ -47,7 +47,10 @@ export const GroupController = {
             include: [
               {
                 model: db.User,
-                as: "user"
+                as: "user",
+                attributes: {
+                  exclude: ["user_password", "when_created", "is_admin"]
+                }
               }
             ]
           }
