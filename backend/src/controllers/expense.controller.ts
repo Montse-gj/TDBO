@@ -66,6 +66,50 @@ export const ExpenseController = {
             return res.status(500).json({ error: "Error del servidor al obtener los gastos" });
         }
     },
+    updateExpense: async (req: Request, res: Response): Promise<any> => {
+        try {
+            const { expenseId } = req.params;
+            const { group_id, paid_by_user_id, amount, description, created_at } = req.body;
+
+            const expense = await db.Expense.findOne({
+                where: { expense_id: expenseId }
+            });
+
+            if (!expense) {
+                return res.status(404).json({ error: "Gasto no encontrado" });
+            }
+
+            if (group_id) {
+                const groupExists = await db.Group.findOne({ where: { group_id } });
+                if (!groupExists) {
+                    return res.status(404).json({ error: "El grupo no existe" });
+                }
+            }
+
+            if (paid_by_user_id) {
+                const userExists = await db.User.findOne({ where: { user_id: paid_by_user_id } });
+                if (!userExists) {
+                    return res.status(404).json({ error: "El usuario no existe" });
+                }
+            }
+
+            await expense.update({
+                group_id: group_id ?? expense.group_id,
+                paid_by_user_id: paid_by_user_id ?? expense.paid_by_user_id,
+                amount: amount ?? expense.amount,
+                description: description ?? expense.description,
+                created_at: created_at ?? expense.created_at
+            });
+
+            return res.status(200).json({
+                message: "Gasto actualizado con éxito",
+                expense
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ error: "Error del servidor al actualizar el gasto" });
+        }
+    },
 
     deleteExpense: async (req: Request, res: Response): Promise<any> => {
         try {

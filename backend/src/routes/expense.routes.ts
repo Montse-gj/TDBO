@@ -5,10 +5,10 @@ const router = Router();
 
 router.post("/", ExpenseController.createExpense);
 router.get("/:groupId", ExpenseController.getExpensesByGroup);
+router.put("/:expenseId", ExpenseController.updateExpense);
 router.delete("/:expenseId", ExpenseController.deleteExpense);
 
 export default router;
-
 
 /*
   crear gasto con curl:
