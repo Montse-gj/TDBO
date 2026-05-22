@@ -14,6 +14,7 @@ export default (sequelize: Sequelize) => {
             group_id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
+                autoIncrement: true,
                 allowNull: false
             },
             group_name: {

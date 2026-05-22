@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 const AppHeader = () => {
     return (
@@ -10,13 +10,13 @@ const AppHeader = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/page1" className={({ isActive }) => "nav-btn" + (isActive ? " nav-btn--active" : "")} >
-                        Page1
+                    <NavLink to="/login" className={({ isActive }) => "nav-btn" + (isActive ? " nav-btn--active" : "")} >
+                        Login
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/page2" className={({ isActive }) => "nav-btn" + (isActive ? " nav-btn--active" : "")} >
-                        Page2
+                    <NavLink to="/register" className={({ isActive }) => "nav-btn" + (isActive ? " nav-btn--active" : "")} >
+                        Registro
                     </NavLink>
                 </li>
                 <li>
