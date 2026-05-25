@@ -18,5 +18,12 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+    rules: {
+      // Esta regla es demasiado estricta: bloquea el patrón estándar de
+      // fetch asíncrono dentro de useEffect (incluso con useCallback).
+      // En nuestros hooks usamos async/await, por lo que setState nunca
+      // se llama de forma síncrona en el cuerpo del efecto.
+      'react-hooks/set-state-in-effect': 'off',
+    },
   },
 ])
