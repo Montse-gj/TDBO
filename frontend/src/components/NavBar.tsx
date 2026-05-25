@@ -62,7 +62,7 @@ export const NavBar = () => {
                             ) : (
                                 <div className="navbar-auth-buttons">
                                     <NavLink to="/register" className="btn-auth btn-auth--register" onClick={() => setMenuOpen(false)}>
-                                        Registrarse
+                                        Registro
                                     </NavLink>
                                     <NavLink to="/login" className="btn-auth btn-auth--login" onClick={() => setMenuOpen(false)}>
                                         Iniciar Sesión
@@ -71,7 +71,7 @@ export const NavBar = () => {
                             )}
                         </ul>
                     </div>
-                    
+
                     <button
                         className={`hamburger ${menuOpen ? 'hamburger--open' : ''}`}
                         onClick={() => setMenuOpen(!menuOpen)}
