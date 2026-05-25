@@ -30,7 +30,7 @@ export const NavBar = () => {
                             {user && (
                                 <>
                                     <li>
-                                        <NavLink to="/page3" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
+                                        <NavLink to="/dashboard" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
                                             Viajes
                                         </NavLink>
                                     </li>
