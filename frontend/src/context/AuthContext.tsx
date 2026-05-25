@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch("http://localhost:3000/api/auth/login",
+            const response = await fetch("/api/auth/login",
                 {
                     method: "POST",
                     headers: {
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch("api/auth/register",
+            const response = await fetch("/api/auth/register",
                 {
                     method: "POST",
                     headers: {
@@ -85,6 +85,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setToken(null);
         localStorage.removeItem("user");
         localStorage.removeItem("token");
+        localStorage.removeItem("activeGroupId");
+        localStorage.removeItem("activeGroupName");
         setError(null);
     };
 

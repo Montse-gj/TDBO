@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { GroupController } from "../controllers/trip.controller.ts";
-import { verifyToken } from "../middlewares/authMiddleware.ts";
+import { verifyToken, verifyGroupMembership } from "../middlewares/authMiddleware.ts";
 
 const router = Router();
 
@@ -8,11 +8,11 @@ const router = Router();
 router.get("/", verifyToken, GroupController.getUserGroups);
 router.post("/", verifyToken, GroupController.createGroup);
 
-router.get("/:groupId/members", verifyToken, GroupController.getGroupMembers);
-router.post("/:groupId/members", verifyToken, GroupController.addMember);
-router.delete("/:groupId/members/:userId", verifyToken, GroupController.removeMember);
+router.get("/:groupId/members", verifyToken, verifyGroupMembership, GroupController.getGroupMembers);
+router.post("/:groupId/members", verifyToken, verifyGroupMembership, GroupController.addMember);
+router.delete("/:groupId/members/:userId", verifyToken, verifyGroupMembership, GroupController.removeMember);
 
-router.put("/:groupId", verifyToken, GroupController.updateGroup);
-router.delete("/:groupId/delete", verifyToken, GroupController.deleteGroup);
+router.put("/:groupId", verifyToken, verifyGroupMembership, GroupController.updateGroup);
+router.delete("/:groupId/delete", verifyToken, verifyGroupMembership, GroupController.deleteGroup);
 
 export default router;
