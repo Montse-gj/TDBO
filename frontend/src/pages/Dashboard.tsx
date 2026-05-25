@@ -5,10 +5,18 @@ import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
     const navigate = useNavigate();
     const { user, token } = useAuthContext();
-    const [trips, setTrips] = useState([]);
     const [loadingTrips, setLoadingTrips] = useState(false);
     const [errorTrips, setErrorTrips] = useState(null);
 
+
+    type Trip = {
+        group_id: number;
+        group_name: string;
+        trip_starts: string;
+        trip_ends: string;
+    };
+
+    const [trips, setTrips] = useState<Trip[]>([]);
     // Redirigir si no hay usuario
     useEffect(() => {
         if (!user) {
@@ -64,8 +72,8 @@ const Dashboard = () => {
                 <div>
                     {trips.map((trip) => (
                         <div
-                            key={trip.id}
-                            onClick={() => navigate(`/trip/${trip.id}`)}
+                            key={trip.group_id}
+                            onClick={() => navigate(`/trip/${trip.group_id}/members`)}
                             style={{
                                 border: "1px solid #ccc",
                                 padding: "1rem",
@@ -73,9 +81,13 @@ const Dashboard = () => {
                                 cursor: "pointer"
                             }}
                         >
-                            <h3>{trip.name}</h3>
-                            <p>Creado el: {trip.createdAt}</p>
-                            <p>Miembros: {trip.membersCount || 0}</p>
+                            <h3>{trip.group_name}</h3>
+                            {trip.trip_ends && new Date(trip.trip_ends) < new Date() && (
+    <span style={{ color: "red" }}> (Finalizado)</span>
+)}
+                            <p>Inicio el: {trip.trip_starts}</p>
+                            <p>Termina el: {trip.trip_ends}</p>
+                            {/* <p>Miembros: {trip.members || 0}</p> */}
                         </div>
                     ))}
                 </div>
