@@ -13,6 +13,14 @@ export type Member = {
   user_email: string;
 };
 
+export type ExpenseSplit = {
+  split_id: number;
+  expense_id: number;
+  user_id: number;
+  amount: number;
+  user: Member;
+};
+
 export type Expense = {
   expense_id: number;
   group_id: number;
@@ -20,11 +28,8 @@ export type Expense = {
   amount: number;
   description: string;
   created_at: string;
-  paidByUser: {
-    user_id: number;
-    user_name: string;
-    user_email: string;
-  };
+  paidByUser: Member;
+  splits: ExpenseSplit[];
 };
 
 export type MemberBalance = {
@@ -32,6 +37,7 @@ export type MemberBalance = {
   user_name: string;
   user_email: string;
   total_paid: number;
+  total_owed: number;
   share: number;
   net_balance: number;
 };

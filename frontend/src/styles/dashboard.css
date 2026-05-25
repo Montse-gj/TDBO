@@ -640,3 +640,75 @@
   font-weight: 800;
   color: #166534;
 }
+
+/* Botón de peligro / eliminar */
+.btn-danger {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background: #fee2e2;
+  color: #991b1b;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #fca5a5;
+}
+
+/* Panel de previsualización de splits */
+.split-preview {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.split-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.split-total {
+  margin-top: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.split-total--ok {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.split-total--error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Chips de desglose de splits en el historial */
+.split-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+}
+
+.split-chip {
+  font-size: 0.72rem;
+  background: #f1f5f9;
+  color: #475569;
+  border-radius: 20px;
+  padding: 0.15rem 0.5rem;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+}
+
