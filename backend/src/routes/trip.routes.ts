@@ -11,6 +11,7 @@ router.delete("/:groupId/delete", GroupController.deleteGroup);
 export default router;
 
 /*
+http://localhost:3000/api/trips/1/members
 
 curl -X POST http://localhost:3000/api/trips \
   -H "Content-Type: application/json" \

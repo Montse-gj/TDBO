@@ -15,7 +15,8 @@ export default (sequelize: Sequelize) => {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
-                allowNull: false
+                allowNull: false,
+                defaultValue: 'Nuevo grupo'
             },
             group_name: {
                 type: DataTypes.STRING(89),
