@@ -1,7 +1,8 @@
 // src/middlewares/authMiddleware.ts
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { JWTPayload } from '../controllers/auth.controller.js'; 
+import { JWTPayload } from '../controllers/auth.controller.ts'; 
+import db from '../models/index.ts';
 
 // Clave secreta para desencriptar y verificar los tokens JWT (debe coincidir con la de auth.controller)
 const JWT_SECRET = process.env.JWT_SECRET || 'tu_clave_secreta_super_segura';
@@ -13,7 +14,7 @@ export interface AuthenticatedRequest extends Request {
 }
 
 // Este middleware actúa como un "vigilante de seguridad" en las rutas privadas.
-export const verifyToken = (req: AuthenticatedRequest, res: Response, next: NextFunction): any => {
+export const verifyToken = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<any> => {
   // 1. Buscamos el token JWT en las cabeceras (headers) de la petición HTTP bajo 'authorization'
   const authHeader = req.headers['authorization'];
   
@@ -30,14 +31,20 @@ export const verifyToken = (req: AuthenticatedRequest, res: Response, next: Next
     // Si el token fue modificado o ha expirado, jwt.verify() lanzará un error automáticamente.
     const decoded = jwt.verify(token, JWT_SECRET) as JWTPayload;
     
-    // 5. Si es válido, inyectamos los datos del usuario (id y email) dentro de 'req.user'.
-    // Así, los controladores que vengan después podrán saber qué usuario hizo la petición.
+    // 5. Verificar de manera robusta que el usuario decodificado realmente existe en la base de datos.
+    // Esto previene fallas si la base de datos se reinició/limpió pero el navegador mantiene un token viejo.
+    const userExists = await db.User.findByPk(decoded.id);
+    if (!userExists) {
+      return res.status(401).json({ error: 'El usuario de la sesión ya no existe. Por favor, inicia sesión de nuevo.' });
+    }
+
+    // 6. Si es válido y existe, inyectamos los datos del usuario (id y email) dentro de 'req.user'.
     req.user = decoded; 
     
-    // 6. Damos paso a la función controladora de la ruta (continuamos el flujo)
+    // 7. Damos paso a la función controladora de la ruta (continuamos el flujo)
     next();
   } catch (error) {
-    // 7. Si falló la verificación (token falso o expirado), denegamos el acceso (403 Prohibido)
+    // 8. Si falló la verificación (token falso o expirado), denegamos el acceso (403 Prohibido)
     return res.status(403).json({ error: 'Token inválido o expirado' });
   }
 };
