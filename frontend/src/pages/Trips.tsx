@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useAuthContext } from "../context/AuthContext.tsx";
 import { useTrips, type Member } from "../hooks/useTrips.ts";
-import "../styles/dashboard.css";
 
 type GroupForm = {
   group_name: string;

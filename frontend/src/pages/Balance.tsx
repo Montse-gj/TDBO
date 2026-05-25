@@ -1,7 +1,6 @@
 import { useAuthContext } from "../context/AuthContext.tsx";
 import { useTrips } from "../hooks/useTrips.ts";
 import { useBalances } from "../hooks/useBalances.ts";
-import "../styles/dashboard.css";
 
 const Balance = () => {
   const { user } = useAuthContext();

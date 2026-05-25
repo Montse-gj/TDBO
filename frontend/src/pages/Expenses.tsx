@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useTrips } from "../hooks/useTrips.ts";
 import { useExpenses } from "../hooks/useExpenses.ts";
-import "../styles/dashboard.css";
 
 const Expenses = () => {
   const { activeGroupId, activeGroupName, members } = useTrips();
