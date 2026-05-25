@@ -15,12 +15,12 @@ export default (sequelize: Sequelize) => {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
-                allowNull: false,
-                defaultValue: 'Nuevo grupo'
+                allowNull: false
             },
             group_name: {
                 type: DataTypes.STRING(89),
-                allowNull: false
+                allowNull: false,
+                defaultValue: 'Nuevo grupo'
             },
             created_by: {
                 type: DataTypes.STRING(89),
