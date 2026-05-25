@@ -24,23 +24,23 @@ export const NavBar = () => {
 
                 <div className="navbar-menu">
 
-                    
+
                     <div className={`drawer ${menuOpen ? 'drawer--open' : ''}`}>
                         <ul className="drawer-menu">
                             {user && (
                                 <>
                                     <li>
-                                        <NavLink to="/dashboard" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
+                                        <NavLink to="/trips" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
                                             Viajes
                                         </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to="/page4" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
+                                        <NavLink to="/expenses" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
                                             Gastos
                                         </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to="/page5" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
+                                        <NavLink to="/balance" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
                                             Saldos
                                         </NavLink>
                                     </li>
@@ -71,7 +71,7 @@ export const NavBar = () => {
                             )}
                         </ul>
                     </div>
-                    
+
                     <button
                         className={`hamburger ${menuOpen ? 'hamburger--open' : ''}`}
                         onClick={() => setMenuOpen(!menuOpen)}

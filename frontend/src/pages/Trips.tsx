@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useAuthContext } from "../context/AuthContext.tsx";
+import { useTrips, type Member } from "../hooks/useTrips.ts";
+import "../styles/dashboard.css";
 
 type GroupForm = {
   group_name: string;
@@ -8,11 +10,25 @@ type GroupForm = {
 };
 
 const Trips = () => {
-  const { token, user } = useAuthContext();
+  const { user, token } = useAuthContext();
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
+
+  const {
+    trips,
+    activeGroupId,
+    activeGroupName,
+    members,
+    searchResults,
+    loading,
+    error,
+    inviteLoading,
+    inviteSuccess,
+    inviteError,
+    selectTrip,
+    createTrip,
+    searchUsers,
+    inviteMember,
+  } = useTrips();
 
   const [form, setForm] = useState<GroupForm>({
     group_name: "",
@@ -20,155 +36,218 @@ const Trips = () => {
     trip_ends: "",
   });
 
+  const [searchQuery, setSearchQuery] = useState("");
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (!token) {
-      setError("Debes iniciar sesión para crear un grupo");
-      return;
-    }
-
-    setLoading(true);
-    setError("");
-    setSuccess("");
-
-    try {
-      // Usamos ruta relativa '/api/trips' para aprovechar el proxy de Vite
-      const response = await fetch("/api/trips", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}` // Cabecera con el token JWT
-        },
-        body: JSON.stringify({
-          group_name: form.group_name,
-          trip_starts: form.trip_starts,
-          trip_ends: form.trip_ends,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.error || "Error al crear el grupo");
-        return;
-      }
-
-      setSuccess("¡Grupo creado correctamente!");
-      setForm({
-        group_name: "",
-        trip_starts: "",
-        trip_ends: "",
-      });
+    const success = await createTrip(form.group_name, form.trip_starts, form.trip_ends);
+    if (success) {
+      setForm({ group_name: "", trip_starts: "", trip_ends: "" });
       setOpen(false);
-    } catch {
-      setError("No se pudo conectar con el servidor backend");
-    } finally {
-      setLoading(false);
     }
   };
 
+  const handleSearchUsers = (query: string) => {
+    setSearchQuery(query);
+    searchUsers(query);
+  };
+
+  const handleInviteMember = async (targetUser: Member) => {
+    await inviteMember(targetUser);
+    setSearchQuery("");
+  };
+
   return (
-    <div style={{ padding: "1rem", maxWidth: "400px" }}>
-      <h2>Crear Grupo de Viaje</h2>
-      <p>Organiza tus gastos compartidos de forma rápida y sencilla.</p>
+    <div className="page-container">
+      <div className="page-header">
+        <h2 className="page-title">Mis Viajes</h2>
+        <p className="page-subtitle">
+          Crea tus viajes grupales, selecciona uno como activo y gestiona a sus participantes.
+        </p>
+      </div>
 
       {!token ? (
-        <div style={{ padding: "1rem", background: "#fee2e2", border: "1px solid #fca5a5", borderRadius: "8px", color: "#991b1b" }}>
-          <p style={{ margin: 0 }}><strong>Acceso restringido:</strong> Debes iniciar sesión para poder crear un grupo de viaje.</p>
+        <div className="alert-danger">
+          <strong>Acceso restringido:</strong> Debes iniciar sesión para gestionar tus viajes.
         </div>
       ) : (
-        <>
-          <p style={{ fontSize: "0.85rem", color: "#666" }}>
-            Conectado como: <strong>{user?.name || "Usuario"}</strong>
-          </p>
+        <div className="dashboard-grid">
 
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            style={{
-              padding: "0.6rem 1.2rem",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              background: "#f0f0f0",
-              cursor: "pointer",
-              marginBottom: "1rem"
-            }}
-          >
-            {open ? "Cerrar formulario" : "Agregar grupo"}
-          </button>
-
-          {success && <p style={{ color: "green", fontWeight: "600" }}>{success}</p>}
-          {error && <p style={{ color: "red", fontWeight: "600" }}>{error}</p>}
-
-          {open && (
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem" }}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-                <label htmlFor="group_name" style={{ fontSize: "0.9rem", fontWeight: "600" }}>Nombre del Grupo / Viaje</label>
-                <input
-                  id="group_name"
-                  name="group_name"
-                  type="text"
-                  placeholder="Ej: Viaje a Mallorca"
-                  value={form.group_name}
-                  onChange={handleChange}
-                  required
-                  style={{ padding: "0.5rem", borderRadius: "6px", border: "1px solid #ccc" }}
-                />
-              </div>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-                <label htmlFor="trip_starts" style={{ fontSize: "0.9rem", fontWeight: "600" }}>Fecha de Inicio</label>
-                <input
-                  id="trip_starts"
-                  name="trip_starts"
-                  type="date"
-                  value={form.trip_starts}
-                  onChange={handleChange}
-                  required
-                  style={{ padding: "0.5rem", borderRadius: "6px", border: "1px solid #ccc" }}
-                />
-              </div>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-                <label htmlFor="trip_ends" style={{ fontSize: "0.9rem", fontWeight: "600" }}>Fecha de Fin</label>
-                <input
-                  id="trip_ends"
-                  name="trip_ends"
-                  type="date"
-                  value={form.trip_ends}
-                  onChange={handleChange}
-                  required
-                  style={{ padding: "0.5rem", borderRadius: "6px", border: "1px solid #ccc" }}
-                />
-              </div>
-
+          {/* COLUMNA IZQUIERDA: LISTA Y CREACIÓN DE VIAJES */}
+          <div className="left-column">
+            <div className="section-header">
+              <h3 className="section-title">Tus Grupos de Viaje</h3>
               <button
-                type="submit"
-                disabled={loading}
-                style={{
-                  padding: "0.7rem",
-                  borderRadius: "8px",
-                  border: "none",
-                  background: "#4f46e5",
-                  color: "#fff",
-                  fontWeight: "600",
-                  cursor: "pointer",
-                  marginTop: "0.5rem"
-                }}
+                type="button"
+                onClick={() => setOpen((v) => !v)}
+                className="btn-secondary"
               >
-                {loading ? "Creando grupo..." : "Crear grupo"}
+                {open ? "Cancelar" : "+ Nuevo Viaje"}
               </button>
-            </form>
-          )}
-        </>
+            </div>
+
+            {open && (
+              <form onSubmit={handleSubmit} className="dashboard-form">
+                <h4 className="form-title">Agregar Nuevo Viaje</h4>
+                {error && <p className="msg-error">{error}</p>}
+
+                <div className="form-group">
+                  <label htmlFor="group_name" className="form-label">Nombre del Viaje</label>
+                  <input
+                    id="group_name"
+                    name="group_name"
+                    type="text"
+                    placeholder="Ej: Escapada a Pirineos"
+                    value={form.group_name}
+                    onChange={handleChange}
+                    required
+                    className="form-input"
+                  />
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="trip_starts" className="form-label">Fecha Inicio</label>
+                    <input
+                      id="trip_starts"
+                      name="trip_starts"
+                      type="date"
+                      value={form.trip_starts}
+                      onChange={handleChange}
+                      required
+                      className="form-input"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="trip_ends" className="form-label">Fecha Fin</label>
+                    <input
+                      id="trip_ends"
+                      name="trip_ends"
+                      type="date"
+                      value={form.trip_ends}
+                      onChange={handleChange}
+                      required
+                      className="form-input"
+                    />
+                  </div>
+                </div>
+
+                <button type="submit" disabled={loading} className="btn-primary">
+                  {loading ? "Creando..." : "Confirmar Viaje"}
+                </button>
+              </form>
+            )}
+
+            {trips.length === 0 ? (
+              <p className="empty-state">Aún no tienes viajes creados. ¡Crea uno para empezar!</p>
+            ) : (
+              <div className="card-list">
+                {trips.map((trip) => {
+                  const isActive = activeGroupId === trip.group_id;
+                  return (
+                    <div
+                      key={trip.group_id}
+                      onClick={() => selectTrip(trip)}
+                      className={`list-card trip-card${isActive ? " active" : ""}`}
+                    >
+                      <div>
+                        <h4 className="card-title">{trip.group_name}</h4>
+                        <p className="card-subtitle">📅 {trip.trip_starts} hasta {trip.trip_ends}</p>
+                      </div>
+                      <span className="trip-badge">
+                        {isActive ? "Viaje Activo" : "Seleccionar"}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* COLUMNA DERECHA: MIEMBROS E INVITACIONES */}
+          <div className="side-panel">
+            {!activeGroupId ? (
+              <div className="panel-empty">
+                <span className="emoji">🎒</span>
+                <p>Selecciona un grupo de viaje de la lista para ver y gestionar sus miembros.</p>
+              </div>
+            ) : (
+              <>
+                <div>
+                  <h3 className="panel-header-title">Viaje seleccionado:</h3>
+                  <span className="panel-header-value">{activeGroupName}</span>
+                </div>
+
+                <hr className="divider" />
+
+                <div>
+                  <h4 className="member-section-title">Integrantes del Viaje ({members.length})</h4>
+                  <div className="member-list">
+                    {members.map((m) => (
+                      <div key={m.user_id} className="member-item">
+                        <div className="member-avatar">
+                          {m.user_name.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="member-info">
+                          <span className="member-name">
+                            {m.user_name}
+                            {m.user_id === user?.id && <span className="member-me">(Tú)</span>}
+                          </span>
+                          <span className="member-email">{m.user_email}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <hr className="divider" />
+
+                <div className="left-column">
+                  <h4 className="member-section-title">Añadir Amigos al Viaje</h4>
+
+                  <div className="search-container">
+                    <input
+                      type="text"
+                      placeholder="Buscar por nombre o correo..."
+                      value={searchQuery}
+                      onChange={(e) => handleSearchUsers(e.target.value)}
+                      className="form-input"
+                    />
+
+                    {searchResults.length > 0 && (
+                      <div className="search-dropdown">
+                        {searchResults.map((su) => (
+                          <div key={su.user_id} className="search-result-item">
+                            <div className="member-info">
+                              <span className="member-name">{su.user_name}</span>
+                              <span className="member-email">{su.user_email}</span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => handleInviteMember(su)}
+                              disabled={inviteLoading}
+                              className="btn-secondary btn-small"
+                            >
+                              Agregar
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {inviteSuccess && <p className="msg-success">{inviteSuccess}</p>}
+                  {inviteError && <p className="msg-error">{inviteError}</p>}
+                </div>
+              </>
+            )}
+          </div>
+
+        </div>
       )}
     </div>
   );

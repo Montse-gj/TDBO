@@ -5,11 +5,9 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Trips from './pages/Trips';
-import Page4 from './pages/Page4';
-import Page5 from './pages/Page5';
+import Expenses from './pages/Expenses';
+import Balance from './pages/Balance';
 import User from './pages/User';
-import Dashboard from './pages/Dashboard';
-
 
 const router = createBrowserRouter([
     {
@@ -17,14 +15,13 @@ const router = createBrowserRouter([
         element: <Root />,
         errorElement: <Error />,
         children: [
-            { index: true, element: <Navigate to="/dashboard" /> },
+            { index: true, element: <Navigate to="/home" /> },
             { path: 'home', element: <Home /> },
             { path: 'login', element: <Login /> },
             { path: 'register', element: <Register /> },
-            { path: 'dashboard', element: <Dashboard /> },
             { path: 'trips', element: <Trips /> },
-            { path: 'page4', element: <Page4 /> },
-            { path: 'page5', element: <Page5 /> },
+            { path: 'expenses', element: <Expenses /> },
+            { path: 'balance', element: <Balance /> },
             { path: 'user', element: <User /> },
         ],
     },
