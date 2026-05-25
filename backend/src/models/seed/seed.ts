@@ -36,8 +36,8 @@ const seedAll = async () => {
 
     await Expense.bulkCreate([
         { expense_id: 1, group_id: 1, paid_by_user_id: 2, amount: 233, created_at: '2026-06-11', description: 'Hotel' },
-        { expense_id: 1, group_id: 1, paid_by_user_id: 3, amount: 89, created_at: '2026-06-13', description: 'Cena' },
-        { expense_id: 1, group_id: 1, paid_by_user_id: 4, amount: 377, created_at: '2026-06-13', description: 'Tren' }
+        { expense_id: 2, group_id: 1, paid_by_user_id: 3, amount: 89, created_at: '2026-06-13', description: 'Cena' },
+        { expense_id: 3, group_id: 1, paid_by_user_id: 4, amount: 377, created_at: '2026-06-13', description: 'Tren' }
     ], { ignoreDuplicates: true });
 
     await db.query(`SELECT setval(pg_get_serial_sequence('users', 'user_id'), COALESCE((SELECT MAX(user_id) FROM users), 1))`);

@@ -10,7 +10,7 @@ if (!rootElement) {
 }
 
 createRoot(rootElement).render(
-  <AuthProvider> 
-  <RouterProvider router={router} />
+  <AuthProvider>
+    <RouterProvider router={router} />
   </AuthProvider>
 );
