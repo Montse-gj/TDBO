@@ -4,9 +4,9 @@ import Error from './pages/Error';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Page3 from './pages/Page3';
-import Page4 from './pages/Page4';
-import Page5 from './pages/Page5';
+import Trips from './pages/Trips';
+import Expenses from './pages/Expenses';
+import Balance from './pages/Balance';
 import User from './pages/User';
 
 const router = createBrowserRouter([
@@ -19,9 +19,9 @@ const router = createBrowserRouter([
             { path: 'home', element: <Home /> },
             { path: 'login', element: <Login /> },
             { path: 'register', element: <Register /> },
-            { path: 'page3', element: <Page3 /> },
-            { path: 'page4', element: <Page4 /> },
-            { path: 'page5', element: <Page5 /> },
+            { path: 'trips', element: <Trips /> },
+            { path: 'expenses', element: <Expenses /> },
+            { path: 'balance', element: <Balance /> },
             { path: 'user', element: <User /> },
         ],
     },

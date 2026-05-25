@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
 import logo from '../assets/logo.svg';
-import '../styles/index.css';
-import '../styles/NavBar.css';
 
 export const NavBar = () => {
     const { user, logout } = useAuthContext();
@@ -24,23 +22,23 @@ export const NavBar = () => {
 
                 <div className="navbar-menu">
 
-                    
+
                     <div className={`drawer ${menuOpen ? 'drawer--open' : ''}`}>
                         <ul className="drawer-menu">
                             {user && (
                                 <>
                                     <li>
-                                        <NavLink to="/page3" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
+                                        <NavLink to="/trips" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
                                             Viajes
                                         </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to="/page4" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
+                                        <NavLink to="/expenses" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
                                             Gastos
                                         </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to="/page5" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
+                                        <NavLink to="/balance" className={({ isActive }) => "navbar-link" + (isActive ? " navbar-link--active" : "")} onClick={() => setMenuOpen(false)}>
                                             Saldos
                                         </NavLink>
                                     </li>

@@ -1,7 +1,7 @@
 import { useRouteError, isRouteErrorResponse } from "react-router";
 
 const Error = () => {
-    const error = useRouteError() as any;
+    const error = useRouteError() as { status?: number; data?: string; message?: string };
 
     if (isRouteErrorResponse(error)) {
         return (
