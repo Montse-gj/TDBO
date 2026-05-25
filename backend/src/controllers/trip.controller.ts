@@ -3,7 +3,7 @@ import db from "../models/index.ts";
 
 export const GroupController = {
   createGroup: async (req: Request, res: Response): Promise<any> => {
-    console.log("got here")
+
     try {
       const { group_id, group_name, created_by, trip_starts, trip_ends } = req.body;
 

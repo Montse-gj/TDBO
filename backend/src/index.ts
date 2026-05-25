@@ -4,12 +4,13 @@ import { checkDB, syncDB } from "./config/db.ts";
 import models from "./models/index.ts";
 import seedAll from "./models/seed/seed.ts";
 import routes from "./routes/routes.ts";
-import cors from "cors";
+import cors from 'cors';
 
 const PORT = process.env.APP_PORT || 3000;
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(cors());
 
 app.use('/api', routes);
 
