@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch("/api/auth/login",
+            const response = await fetch("http://localhost:3000/api/auth/login",
                 {
                     method: "POST",
                     headers: {
@@ -52,6 +52,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 setError(data.error);
             }
         } catch (error) {
+            console.error(error);
             setError("Error al iniciar sesión");
         }
         setLoading(false);
