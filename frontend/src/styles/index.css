@@ -1,3 +1,77 @@
+/* =============== IMPORTED FONTS =============== */
+
+@font-face {
+  font-family: 'Fredoka';
+  src: url('./assets/fonts/fredoka-one.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('./assets/fonts/PlusJakartaSans-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Varela Round';
+  src: url('./assets/fonts/VarelaRound-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =============== VARIABLES =============== */
+
+:root {
+  --black: #222222;
+  --white: #fdfdfd;
+  --light-green: #80B46D;
+  --green: #527048;
+  --dark-green: #41573A;
+  --font-menu: 'Fredoka', sans-serif;
+  --font-main: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* =============== GENERAL STYLES =============== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--white);
+  font-family: var(--font-main);
+  font-size: 20px;
+
+}
+
+.app-main {
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -109,3 +183,5 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+*/
+
