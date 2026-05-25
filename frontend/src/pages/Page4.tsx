@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useTrips } from "../hooks/useTrips.ts";
 import { useExpenses } from "../hooks/useExpenses.ts";
+import { useAuthContext } from "../context/AuthContext.tsx";
 import "../styles/dashboard.css";
 
 const Page4 = () => {
+  const { user } = useAuthContext();
   const { activeGroupId, activeGroupName, members } = useTrips();
   const { expenses, createExpense, loading } = useExpenses(activeGroupId);
 
@@ -11,8 +13,11 @@ const Page4 = () => {
   const [success, setSuccess] = useState("");
   const [formError, setFormError] = useState("");
 
-  // El pagador por defecto es el primer miembro de la lista
-  const defaultPayer = members.length > 0 ? String(members[0].user_id) : "";
+  // El pagador por defecto es el usuario autenticado si es miembro, o el primer miembro en la lista
+  const loggedInUserMember = members.find((m) => m.user_id === user?.id);
+  const defaultPayer = loggedInUserMember
+    ? String(loggedInUserMember.user_id)
+    : (members.length > 0 ? String(members[0].user_id) : "");
 
   const [form, setForm] = useState({
     description: "",

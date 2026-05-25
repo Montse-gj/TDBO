@@ -48,3 +48,44 @@ export const verifyToken = async (req: AuthenticatedRequest, res: Response, next
     return res.status(403).json({ error: 'Token inválido o expirado' });
   }
 };
+
+// Middleware para verificar que el usuario autenticado pertenece al grupo
+export const verifyGroupMembership = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+): Promise<any> => {
+  const userId = req.user?.id;
+  const groupId = req.params.groupId || req.body.group_id;
+
+  if (!userId) {
+    return res.status(401).json({ error: "No autorizado. Inicia sesión de nuevo." });
+  }
+
+  if (!groupId) {
+    return res.status(400).json({ error: "Falta el identificador del grupo." });
+  }
+
+  const parsedGroupId = Number(groupId);
+  if (isNaN(parsedGroupId)) {
+    return res.status(400).json({ error: "El identificador del grupo no es válido." });
+  }
+
+  try {
+    const membership = await db.GroupMembers.findOne({
+      where: {
+        group_id: parsedGroupId,
+        user_id: userId
+      }
+    });
+
+    if (!membership) {
+      return res.status(403).json({ error: "Acceso denegado. No eres miembro de este grupo de viaje." });
+    }
+
+    next();
+  } catch (error) {
+    console.error("Error al verificar la membresía del grupo:", error);
+    return res.status(500).json({ error: "Error del servidor al verificar acceso al grupo" });
+  }
+};

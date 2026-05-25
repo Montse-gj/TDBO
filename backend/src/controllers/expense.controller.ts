@@ -24,6 +24,14 @@ export const ExpenseController = {
         return res.status(404).json({ error: "El grupo no existe" });
       }
 
+      // Validar si el usuario que realiza la petición pertenece al grupo
+      const isCreatorMember = await db.GroupMembers.findOne({
+        where: { group_id, user_id: loggedInUserId }
+      });
+      if (!isCreatorMember) {
+        return res.status(403).json({ error: "Acceso denegado. No eres miembro de este grupo de viaje." });
+      }
+
       // Validar si el usuario pagador existe
       const userExists = await db.User.findOne({ where: { user_id: payerId } });
       if (!userExists) {
@@ -91,6 +99,7 @@ export const ExpenseController = {
     try {
       const { expenseId } = req.params;
       const { group_id, paid_by_user_id, amount, description, created_at } = req.body;
+      const loggedInUserId = req.user?.id;
 
       const expense = await db.Expense.findOne({
         where: { expense_id: expenseId }
@@ -100,10 +109,26 @@ export const ExpenseController = {
         return res.status(404).json({ error: "Gasto no encontrado" });
       }
 
+      // Verificar que el usuario pertenece al grupo actual del gasto
+      const isMember = await db.GroupMembers.findOne({
+        where: { group_id: expense.group_id, user_id: loggedInUserId }
+      });
+      if (!isMember) {
+        return res.status(403).json({ error: "No tienes permiso para modificar este gasto." });
+      }
+
       if (group_id) {
         const groupExists = await db.Group.findOne({ where: { group_id } });
         if (!groupExists) {
           return res.status(404).json({ error: "El grupo no existe" });
+        }
+
+        // Verificar membresía en el nuevo grupo
+        const isMemberOfNewGroup = await db.GroupMembers.findOne({
+          where: { group_id, user_id: loggedInUserId }
+        });
+        if (!isMemberOfNewGroup) {
+          return res.status(403).json({ error: "No tienes permiso para mover este gasto a ese grupo." });
         }
       }
 
@@ -111,6 +136,15 @@ export const ExpenseController = {
         const userExists = await db.User.findOne({ where: { user_id: paid_by_user_id } });
         if (!userExists) {
           return res.status(404).json({ error: "El usuario no existe" });
+        }
+
+        // Verificar que el pagador pertenece al grupo (nuevo o actual)
+        const targetGroupId = group_id || expense.group_id;
+        const isPayerMember = await db.GroupMembers.findOne({
+          where: { group_id: targetGroupId, user_id: paid_by_user_id }
+        });
+        if (!isPayerMember) {
+          return res.status(400).json({ error: "El usuario pagador no es miembro del grupo." });
         }
       }
 
@@ -136,14 +170,25 @@ export const ExpenseController = {
   deleteExpense: async (req: AuthenticatedRequest, res: Response): Promise<any> => {
     try {
       const { expenseId } = req.params;
+      const loggedInUserId = req.user?.id;
 
-      const deleted = await db.Expense.destroy({
+      const expense = await db.Expense.findOne({
         where: { expense_id: expenseId }
       });
 
-      if (!deleted) {
+      if (!expense) {
         return res.status(404).json({ error: "Gasto no encontrado" });
       }
+
+      // Verificar que el usuario pertenece al grupo del gasto
+      const isMember = await db.GroupMembers.findOne({
+        where: { group_id: expense.group_id, user_id: loggedInUserId }
+      });
+      if (!isMember) {
+        return res.status(403).json({ error: "No tienes permiso para borrar este gasto." });
+      }
+
+      await expense.destroy();
 
       return res.status(200).json({ message: "Gasto eliminado con éxito" });
     } catch (error) {
