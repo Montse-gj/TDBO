@@ -75,16 +75,19 @@ h1 {
   font-family: var(--montserrat);
 }
 
-/* =============== REGISTER PAGE =============== */
+/* =============== REGISTER/LOGIN PAGE =============== */
 
+.login-wrapper,
 .register-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   width: 100%;
   max-width: 58rem;
+  margin: 2rem 0 3rem;
 
-  .register-form {
+  .register-form,
+  .login-form {
     width: 45%;
 
     h1 {
@@ -194,10 +197,7 @@ h1 {
           transform: rotate(-30deg);
           background-color: var(--light-green);
           transition: all 0.3s ease;
-
         }
-
-
 
         &:hover {
           border: 0.18rem solid var(--dark-green);
@@ -208,9 +208,36 @@ h1 {
           &::after {
             left: 8rem;
           }
-
         }
+      }
 
+      p {
+        margin: 0.3rem 0;
+        font-size: 0.8rem;
+
+        a {
+          position: relative;
+          color: var(--green);
+          text-decoration: none;
+
+          &::after {
+            position: absolute;
+            content: '';
+            left: 0;
+            bottom: -0.1rem;
+            width: 0;
+            height: 0.1rem;
+            background: var(--green);
+            transition: all 0.3s ease;
+
+          }
+
+          &:hover {
+            &::after {
+              width: 100%;
+            }
+          }
+        }
       }
     }
   }
@@ -231,7 +258,7 @@ h1 {
         width: 100%;
         aspect-ratio: 1 / 1;
         left: 0.5rem;
-        top: 0.5rem;
+        bottom: 5.5rem;
         border-radius: 2rem;
         background: var(--light-green);
         z-index: 2;
@@ -243,7 +270,7 @@ h1 {
         width: 100%;
         aspect-ratio: 1 / 1;
         left: 1.5rem;
-        bottom: 0;
+        top: 5.5rem;
         border-radius: 2rem;
         background: var(--green);
         z-index: 3;
@@ -260,4 +287,67 @@ h1 {
       }
     }
   }
+}
+
+.login-wrapper {
+  flex-direction: row-reverse;
+
+  .image-wrapper {
+    div {
+      &::before {
+        left: 0.5rem;
+        bottom: clamp(0rem, -4.444rem + 9.259vw, 2.5rem);
+      }
+
+      &::after {
+        left: 1.5rem;
+        top: clamp(0rem, -4.444rem + 9.259vw, 2.5rem);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+
+  .login-wrapper {
+    flex-direction: column;
+    align-items: center;
+
+    .login-form {
+      width: 100%;
+    }
+
+    .image-wrapper {
+      width: 70%;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+    }
+  }
+
+  .register-wrapper {
+    flex-direction: column;
+    align-items: center;
+
+    .register-form {
+      width: 100%;
+    }
+
+    .image-wrapper {
+      width: 70%;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+
+      div {
+        &::before {
+          top: 0; 
+        }
+
+        &::after {
+          top: 3rem;
+        }
+      }
+    }
+  }
+
+
 }

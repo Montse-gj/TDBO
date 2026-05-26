@@ -66,7 +66,7 @@ export const Register = () => {
                         </div>
                         <div className="">
                             <label htmlFor="password">Contraseña:</label>
-                            <input type="password" id="password"  placeholder="Algo que recuerdes" value={password} onChange={(e) => {
+                            <input type="password" id="password" placeholder="Algo que recuerdes" value={password} onChange={(e) => {
                                 setPassword(e.target.value)
                                 setLocalError("")
                             }}
@@ -88,8 +88,8 @@ export const Register = () => {
                 </div>
                 <div className="image-wrapper">
                     <div>
-                    <img src="../src/assets/smiling-people.webp" />
-                </div>
+                        <img src="../src/assets/smiling-people.webp" alt="Happy people who are going to sign up on the TDBO website" />
+                    </div>
                 </div>
             </div>
         </>
