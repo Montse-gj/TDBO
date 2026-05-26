@@ -44,6 +44,12 @@
   --light-yellow: #efea5f;
   --yellow: #e1df44;
   --red: #C96A63;
+  --secondary-orange: #D9A46E;
+  --secondary-purple: #9A86AD;
+  --secondary-blue: #5F84A2;
+  --secondary-brown: #8A6A52;
+  --secondary-pink: #B7848C;
+  --secondary-terracotta: #B96F5B;
   --montserrat: 'Montserrat', sans-serif;
   --fredoka: 'Fredoka', sans-serif;
   --jakarta: 'Plus Jakarta Sans', sans-serif;
@@ -339,7 +345,7 @@ h1 {
 
       div {
         &::before {
-          top: 0; 
+          top: 0;
         }
 
         &::after {
@@ -348,6 +354,98 @@ h1 {
       }
     }
   }
+}
+
+/* =============== TRIPS PAGE =============== */
 
 
+.btn-secondary {
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--light-green);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 1.5rem;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+}
+
+.side-panel {
+  .btn-secondary {
+    display: none;
+  }
+}
+
+
+.member-list {
+  .member-avatar {
+    color: var(--black);
+  }
+
+  div:nth-of-type(8n + 1) .member-avatar {
+    background: var(--secondary-orange);
+  }
+
+  div:nth-of-type(8n + 2) .member-avatar {
+    background: var(--yellow);
+  }
+
+  div:nth-of-type(8n + 3) .member-avatar {
+    background: var(--red);
+  }
+
+  div:nth-of-type(8n + 4) .member-avatar {
+    background: var(--secondary-purple);
+  }
+
+  div:nth-of-type(8n + 5) .member-avatar {
+    background: var(--secondary-pink);
+  }
+
+  div:nth-of-type(8n + 6) .member-avatar {
+    background: var(--secondary-brown);
+  }
+
+  div:nth-of-type(8n + 7) .member-avatar {
+    background: var(--secondary-blue);
+  }
+
+  div:nth-of-type(8n + 8) .member-avatar {
+    background: var(--secondary-terracota);
+  }
+}
+
+@media (max-width: 768px) {
+  div .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .card-list {
+    width: 100%;
+  }
+
+  div .side-panel {
+    display: none;
+  }
+
+  div .side-panel.visible {
+    display: block;
+  }
+
+  div .left-column.hidden {
+    display: none;
+  }
+
+  .side-panel {
+    .btn-secondary {
+      display: inline-block;
+    }
+  }
 }

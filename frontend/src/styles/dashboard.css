@@ -132,20 +132,6 @@
   cursor: not-allowed;
 }
 
-.btn-secondary {
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  border: none;
-  background: var(--light-green);
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-secondary:hover:not(:disabled) {
-  opacity: 0.9;
-}
 
 .btn-outline {
   padding: 0.5rem 1rem;
