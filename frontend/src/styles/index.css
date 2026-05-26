@@ -353,6 +353,9 @@ div .dashboard-grid {
     display: grid;
     grid-template-columns: 1fr;
 }
+
+.btn-secondary {
+  display: block; }
 .card-list{
     width: 100%;
   }
