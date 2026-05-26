@@ -349,5 +349,25 @@ h1 {
     }
   }
 
+div .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.card-list{
+    width: 100%;
+  }
+div .side-panel {
+    display: none;
+  }
+
+div .side-panel.visible {
+    display: block;
+  }
+
+div .left-column.hidden {
+    display: none;
+  }
+
+
 
 }
