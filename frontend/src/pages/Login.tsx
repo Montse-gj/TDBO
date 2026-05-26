@@ -14,7 +14,12 @@ export const Login = () => {
 
     useEffect(() => {
         if (user) {
-            navigate("/");
+            const pendingGroupId = localStorage.getItem("pendingJoinGroupId");
+            if (pendingGroupId) {
+                navigate(`/join-trip/${pendingGroupId}`);
+            } else {
+                navigate("/trips");
+            }
         }
     }, [user, navigate]);
 
@@ -34,7 +39,7 @@ export const Login = () => {
 
     return (
         <>
-          
+
             <div className="">
                 <div className="">
                     <h1>Login</h1>

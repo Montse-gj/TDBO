@@ -1,4 +1,4 @@
-import type { Response } from "express";
+import type { Request, Response } from "express";
 import db from "../models/index.ts";
 import type { AuthenticatedRequest } from "../middlewares/authMiddleware.ts";
 
@@ -197,7 +197,7 @@ export const GroupController = {
 
       // Primero eliminamos los miembros asociados del grupo para evitar errores de integridad
       await db.GroupMembers.destroy({ where: { group_id: Number(groupId) } });
-      
+
       // Opcional: también podríamos eliminar los gastos de ese grupo o dejarlos huérfanos. 
       // Por simplicidad eliminamos los gastos del grupo asociados
       await db.Expense.destroy({ where: { group_id: Number(groupId) } });
@@ -247,4 +247,68 @@ export const GroupController = {
       return res.status(500).json({ error: "Error del servidor al actualizar el grupo" });
     }
   },
+
+  // Permitir que un usuario se una a un grupo de viaje usando el ID del grupo
+  joinGroup: async (req: AuthenticatedRequest, res: Response): Promise<any> => {
+    try {
+      const { groupId } = req.params;
+      const userId = req.user?.id;
+
+      if (!userId) {
+        return res.status(401).json({ error: "No autorizado." });
+      }
+
+      // Validamos que el grupo exista
+      const groupExists = await db.Group.findByPk(Number(groupId));
+      if (!groupExists) {
+        return res.status(404).json({ error: "El grupo especificado no existe." });
+      }
+
+      // Verificar si ya es miembro
+      const alreadyMember = await db.GroupMembers.findOne({
+        where: { group_id: Number(groupId), user_id: userId }
+      });
+
+      if (alreadyMember) {
+        return res.status(200).json({
+          message: "Ya eres miembro de este grupo",
+          group: groupExists
+        });
+      }
+
+      // Añadir miembro
+      await db.GroupMembers.create({
+        group_id: Number(groupId),
+        user_id: userId
+      });
+
+      return res.status(201).json({
+        message: "Te has unido al grupo con éxito",
+        group: groupExists
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Error del servidor al unirse al grupo" });
+    }
+  },
+
+  // Obtener información pública de un viaje para la pantalla de invitación (mapeando campos a id y name)
+  getPublicInfo: async (req: Request, res: Response): Promise<any> => {
+    try {
+      const { groupId } = req.params;
+      const group = await db.Group.findByPk(Number(groupId), {
+        attributes: [
+          ["group_id", "id"],
+          ["group_name", "name"]
+        ]
+      });
+      if (!group) {
+        return res.status(404).json({ error: "El viaje especificado no existe." });
+      }
+      return res.status(200).json(group);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Error al obtener la información del viaje." });
+    }
+  }
 };
