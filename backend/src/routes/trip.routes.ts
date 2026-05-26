@@ -64,6 +64,27 @@ router.post("/", verifyToken, GroupController.createGroup);
 
 /**
  * @swagger
+ * /trips/{groupId}/public-info:
+ *   get:
+ *     summary: Obtener información pública del viaje
+ *     tags: [Viajes/Grupos]
+ *     parameters:
+ *       - in: path
+ *         name: groupId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del grupo
+ *     responses:
+ *       200:
+ *         description: Información pública del viaje
+ *       404:
+ *         description: Grupo no encontrado
+ */
+router.get("/:groupId/public-info", GroupController.getPublicInfo);
+
+/**
+ * @swagger
  * /trips/{groupId}/members:
  *   get:
  *     summary: Obtener miembros de un grupo
@@ -86,6 +107,31 @@ router.post("/", verifyToken, GroupController.createGroup);
  *         description: No eres miembro del grupo
  */
 router.get("/:groupId/members", verifyToken, verifyGroupMembership, GroupController.getGroupMembers);
+
+/**
+ * @swagger
+ * /trips/{groupId}/join:
+ *   post:
+ *     summary: Unirse a un grupo
+ *     tags: [Viajes/Grupos]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: groupId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del grupo
+ *     responses:
+ *       200:
+ *         description: Te has unido al grupo correctamente
+ *       404:
+ *         description: Grupo no encontrado
+ *       400:
+ *         description: Ya eres miembro o enlace inválido
+ */
+router.post("/:groupId/join", verifyToken, GroupController.joinGroup);
 
 /**
  * @swagger

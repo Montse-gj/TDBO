@@ -14,7 +14,12 @@ export const Login = () => {
 
     useEffect(() => {
         if (user) {
-            navigate("/trips");
+            const pendingGroupId = localStorage.getItem("pendingJoinGroupId");
+            if (pendingGroupId) {
+                navigate(`/join-trip/${pendingGroupId}`);
+            } else {
+                navigate("/trips");
+            }
         }
     }, [user, navigate]);
 
@@ -34,7 +39,6 @@ export const Login = () => {
 
     return (
         <>
-
             <div className="login-wrapper">
                 <div className="login-form">
                     <h1><span>L</span><span>og</span><span>in</span></h1>
@@ -72,6 +76,5 @@ export const Login = () => {
             </div>
         </>
     )
-
 }
 export default Login;

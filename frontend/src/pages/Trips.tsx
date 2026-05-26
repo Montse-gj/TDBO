@@ -36,6 +36,15 @@ const Trips = () => {
   });
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyLink = () => {
+    if (!activeGroupId) return;
+    const link = `${window.location.origin}/join-trip/${activeGroupId}`;
+    navigator.clipboard.writeText(link);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -241,6 +250,29 @@ const Trips = () => {
 
                   {inviteSuccess && <p className="msg-success">{inviteSuccess}</p>}
                   {inviteError && <p className="msg-error">{inviteError}</p>}
+
+                  <hr className="divider" />
+
+                  <div className="invite-link-section">
+                    <h4 className="member-section-title">Enlace de Invitación Compartible</h4>
+                    <p className="invite-link-desc">Cualquier persona con este enlace podrá unirse al viaje directamente:</p>
+                    <div className="invite-copy-wrapper">
+                      <input
+                        type="text"
+                        readOnly
+                        value={`${window.location.origin}/join-trip/${activeGroupId}`}
+                        className="form-input invite-link-input"
+                        onClick={(e) => (e.target as HTMLInputElement).select()}
+                      />
+                      <button
+                        type="button"
+                        onClick={handleCopyLink}
+                        className="btn-primary btn-copy-link"
+                      >
+                        {copied ? "¡Copiado!" : "Copiar"}
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </>
             )}

@@ -18,7 +18,12 @@ export const Register = () => {
 
     useEffect(() => {
         if (user) {
-            navigate("/trips");
+            const pendingGroupId = localStorage.getItem("pendingJoinGroupId");
+            if (pendingGroupId) {
+                navigate(`/join-trip/${pendingGroupId}`);
+            } else {
+                navigate("/trips");
+            }
         }
     }, [user, navigate]);
 
