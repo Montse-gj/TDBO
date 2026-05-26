@@ -427,9 +427,12 @@ div .left-column.hidden {
   div .dashboard-grid {
     display: grid;
     grid-template-columns: 1fr;
-  }
+}
 
-  .card-list {
+.btn-secondary {
+  display: block;
+}
+.card-list{
     width: 100%;
   }
 
