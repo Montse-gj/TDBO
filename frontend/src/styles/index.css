@@ -358,26 +358,30 @@ h1 {
 
 /* =============== TRIPS PAGE =============== */
 
-div .dashboard-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-}
 
-.card-list {
-  width: 100%;
-}
-
-div .side-panel {
-  display: none;
-}
-
-div .side-panel.visible {
+.btn-secondary {
   display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--light-green);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 1.5rem;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
 }
 
-div .left-column.hidden {
-  display: none;
+.side-panel {
+  .btn-secondary {
+    display: none;
+  }
 }
+
 
 .member-list {
   .member-avatar {
@@ -415,24 +419,15 @@ div .left-column.hidden {
   div:nth-of-type(8n + 8) .member-avatar {
     background: var(--secondary-terracota);
   }
-
 }
-
-
-
-
-
 
 @media (max-width: 768px) {
   div .dashboard-grid {
     display: grid;
     grid-template-columns: 1fr;
-}
+  }
 
-.btn-secondary {
-  display: block;
-}
-.card-list{
+  .card-list {
     width: 100%;
   }
 
@@ -446,5 +441,11 @@ div .left-column.hidden {
 
   div .left-column.hidden {
     display: none;
+  }
+
+  .side-panel {
+    .btn-secondary {
+      display: inline-block;
+    }
   }
 }
