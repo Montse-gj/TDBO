@@ -18,16 +18,12 @@ export const Register = () => {
 
     useEffect(() => {
         if (user) {
-<<<<<<< Updated upstream
-            navigate("/");
-=======
             const pendingGroupId = localStorage.getItem("pendingJoinGroupId");
             if (pendingGroupId) {
                 navigate(`/join-trip/${pendingGroupId}`);
             } else {
                 navigate("/trips");
             }
->>>>>>> Stashed changes
         }
     }, [user, navigate]);
 
