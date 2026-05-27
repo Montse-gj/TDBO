@@ -38,6 +38,7 @@
   --black: #222222;
   --white: #fdfdfd;
   --light-grey: #cccccc;
+  --dark-grey: #888888;
   --light-green: #80B46D;
   --green: #527048;
   --dark-green: #41573A;
@@ -78,16 +79,15 @@ body {
 }
 
 h1,
-h2 {
+h2,
+h3 {
   font-family: var(--montserrat);
   color: var(--green);
 }
 
 h2 {
   font-size: 2rem;
-  ;
   font-weight: 800;
-
   text-align: center;
   text-transform: uppercase;
 

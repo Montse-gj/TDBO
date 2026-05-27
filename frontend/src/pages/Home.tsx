@@ -5,7 +5,7 @@ import "../styles/Home.css";
 const Home = () => {
     return (
         <div className="landing-container">
-            {/* Hero Section */}
+            
             <section className="hero-section">
                 <h1 className="hero-title">
                     Cuentas <span>simples...</span><br />
@@ -22,10 +22,9 @@ const Home = () => {
                     <img src="../src/assets/hero-friends.webp" alt="Amigos de viaje" />
                 </div>
             </section>
-
-            {/* Features Section */}
+            
             <section className="features-section">
-                <h2 className="section-title">Disfruta con tu gente, divide gastos sin dramas</h2>
+                <h2 className="section-title">Disfruta con tu gente,<br /><span>divide gastos sin dramas</span></h2>
                 <div className="features-grid">
                     <div className="feature-card">
                         <div className="feature-icon">
@@ -58,30 +57,29 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-
-            {/* How it works Section */}
+            
             <section className="how-it-works">
                 <h2 className="section-title">¿Cómo funciona?</h2>
                 <div className="steps-container">
                     <div className="step-item">
-                        <div className="step-number">1</div>
-                        <div className="step-content">
+                        <div className="step-number one">1</div>
+                        <div className="step-content travel">
                             <h3 className="step-title">Crea tu viaje</h3>
                             <p className="step-desc">Añade un destino, las fechas y dales la bienvenida a tus amigos de viaje a través de un enlace de invitación.</p>
                         </div>
                     </div>
                     
                     <div className="step-item">
-                        <div className="step-number">2</div>
-                        <div className="step-content">
+                        <div className="step-number two">2</div>
+                        <div className="step-content register">
                             <h3 className="step-title">Registra los gastos</h3>
                             <p className="step-desc">Vuelos, alojamientos, cenas... Cada vez que alguien pague algo, anótalo en TDBO al instante.</p>
                         </div>
                     </div>
                     
                     <div className="step-item">
-                        <div className="step-number">3</div>
-                        <div className="step-content">
+                        <div className="step-number three">3</div>
+                        <div className="step-content relax">
                             <h3 className="step-title">Relájate y disfruta</h3>
                             <p className="step-desc">Nosotros hacemos las matemáticas. Al final del viaje, sabrás exactamente quién debe pagar a quién para saldar las cuentas.</p>
                         </div>
@@ -89,18 +87,15 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Footer */}
             <footer className="landing-footer">
+                <hr />
                 <div className="footer-content">
                     <img src={logo} alt="TDBO Logo" className="footer-logo" />
                     <div className="footer-links">
-                        <Link to="/home">Inicio</Link>
                         <Link to="/login">Iniciar sesión</Link>
-                        <Link to="/register">Registrarse</Link>
+                        <Link to="/register">Registro</Link>
                     </div>
-                    <div className="footer-bottom">
-                        &copy; {new Date().getFullYear()} TDBO - Travel Dashboard Budget Organizer. Todos los derechos reservados.
-                    </div>
+                    
                 </div>
             </footer>
         </div>
