@@ -23,7 +23,7 @@ export const Login = () => {
         }
     }, [user, navigate]);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLocalError("");
 

@@ -77,7 +77,7 @@ const Expenses = () => {
   );
   const splitsRemaining = Number((totalAmount - splitsSum).toFixed(2));
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormError("");
 
@@ -167,7 +167,7 @@ const Expenses = () => {
   );
   const editSplitsRemaining = Number((editTotal - editSplitsSum).toFixed(2));
 
-  const handleEditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEditSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormError("");
 

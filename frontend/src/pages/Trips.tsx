@@ -51,7 +51,7 @@ const Trips = () => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const success = await createTrip(form.group_name, form.trip_starts, form.trip_ends);
     if (success) {
