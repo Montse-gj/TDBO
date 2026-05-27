@@ -1,33 +1,108 @@
+import { Link } from "react-router-dom";
+import logo from "../assets/logo.svg";
+import "../styles/Home.css";
+
+const FEATURES = [
+    {
+        icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z",
+        title: "Gastos claros",
+        desc: "Registra cada pago en segundos. Olvídate de los tickets arrugados y las hojas de cálculo confusas.",
+    },
+    {
+        icon: "M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z",
+        title: "División inteligente",
+        desc: "Divide en partes iguales, por porcentajes o montos personalizados. Tú decides cómo se reparte el gasto.",
+    },
+    {
+        icon: "M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z",
+        title: "Saldos automáticos",
+        desc: "TDBO calcula quién le debe a quién en tiempo real, minimizando el número de transferencias necesarias.",
+    },
+];
+
+const STEPS = [
+    {
+        numberClass: "one",
+        contentClass: "travel",
+        title: "Crea tu viaje",
+        desc: "Añade un destino, las fechas y dales la bienvenida a tus amigos de viaje a través de un enlace de invitación.",
+    },
+    {
+        numberClass: "two",
+        contentClass: "register",
+        title: "Registra los gastos",
+        desc: "Vuelos, alojamientos, cenas... Cada vez que alguien pague algo, anótalo en TDBO al instante.",
+    },
+    {
+        numberClass: "three",
+        contentClass: "relax",
+        title: "Relájate y disfruta",
+        desc: "Nosotros hacemos las matemáticas. Al final del viaje, sabrás exactamente quién debe pagar a quién para saldar las cuentas.",
+    },
+];
+
 const Home = () => {
     return (
-        <div id="home">
-            <div className="hero-section">
-                <h1><span>Cuentas <span>simples...</span></span>
-                    <img src="../src/assets/hero-friends.webp" alt="TDBO hace más sencillas las cuentas de tus viajes" />
-                    <span>...Viajes <span>inolvidables.</span></span></h1>
-            </div>
-            <div className="subclaim">
-                <h2>Disfruta <span> con tu gente</span><br />divide gastos <span>sin dramas</span></h2>
-            </div>
-            <p>Organizar las cuentas de tus viajes nunca ha sido tan sencillo. Comparte los gastos con tus amigos y deja de perseguir Bizums (porque eso nunca fue una opción).</p>
+        <div className="landing-container">
+            <section className="hero-section">
+                <h1 className="hero-title">
+                    Cuentas <span>simples...</span><br />
+                    Viajes <span>inolvidables.</span>
+                </h1>
+                <p className="hero-subtitle">
+                    Organizar las cuentas de tus viajes nunca ha sido tan sencillo. Comparte los gastos con tus amigos y deja de perseguir Bizums (porque eso nunca fue una opción).
+                </p>
+                <Link to="/register" className="hero-cta">
+                    Empezar ahora
+                </Link>
 
+                <div className="hero-image-wrapper">
+                    <img src="../src/assets/hero-friends.webp" alt="Amigos de viaje" />
+                </div>
+            </section>
 
+            <section className="features-section">
+                <h2 className="section-title">Disfruta con tu gente,<br /><span>divide gastos sin dramas</span></h2>
+                <div className="features-grid">
+                    {FEATURES.map((feature, index) => (
+                        <div className="feature-card" key={index}>
+                            <div className="feature-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d={feature.icon} />
+                                </svg>
+                            </div>
+                            <h3 className="feature-title">{feature.title}</h3>
+                            <p className="feature-desc">{feature.desc}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
 
+            <section className="how-it-works">
+                <h2 className="section-title">¿Cómo funciona?</h2>
+                <div className="steps-container">
+                    {STEPS.map((step, index) => (
+                        <div className="step-item" key={index}>
+                            <div className={`step-number ${step.numberClass}`}>{index + 1}</div>
+                            <div className={`step-content ${step.contentClass}`}>
+                                <h3 className="step-title">{step.title}</h3>
+                                <p className="step-desc">{step.desc}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
 
-            <p>Linguam latinam ego non loquo</p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum nesciunt placeat architecto dolores nihil veritatis quo in sed exercitationem eum quis, dolore blanditiis nemo, officia earum dolor eaque suscipit atque?
-                Aperiam iste fuga aliquid repudiandae. Adipisci facilis deleniti minima minus saepe, neque nulla in vitae laborum nemo, aut veritatis voluptatem quidem eligendi dolor fuga eaque quia ipsa ex nesciunt! Sed?
-                Voluptatum illo porro esse rem. Delectus molestiae in nisi sapiente commodi a ex repudiandae modi maiores eaque magni blanditiis aperiam, alias incidunt placeat nostrum perferendis facilis soluta voluptatem. Sint, perspiciatis!
-                Adipisci ipsum mollitia officiis quo numquam eum hic nam quisquam esse veritatis laudantium nisi id repudiandae optio fuga molestiae dolores labore consequuntur explicabo consectetur recusandae voluptatem provident, totam assumenda! Perspiciatis?
-                Nihil repellendus, culpa odio quo in dolorem, accusamus provident inventore commodi, expedita ab quibusdam facilis laborum eaque ad at. Eos at tempore dolorum animi aliquam ab esse modi hic doloribus.
-                Numquam, corrupti aspernatur, debitis molestias laboriosam aut expedita rerum, sed perferendis eligendi voluptatum quas obcaecati incidunt. Modi quaerat magni quas, voluptatibus saepe obcaecati officia, nemo deserunt quisquam perspiciatis provident. Incidunt.
-                Architecto amet obcaecati ea tempora nihil et in itaque voluptate illum dicta, quos inventore ad, adipisci quibusdam nulla reprehenderit vero at ducimus vitae sit incidunt veritatis. Molestias esse ad voluptate.
-                Ipsum adipisci animi alias labore tempora eos, fugit, ratione aliquid commodi cupiditate id reprehenderit rerum porro doloremque delectus dignissimos sint. Molestias repellendus tenetur non quod. Magnam unde ullam nulla eum.
-                Eligendi ex aut velit harum earum quo non doloremque aperiam fuga alias temporibus sunt nihil molestiae sequi, reprehenderit odio corrupti tempore consectetur eius illo? Iure aspernatur consectetur dignissimos sit labore.
-                Optio saepe quia excepturi numquam quasi ducimus mollitia culpa rerum suscipit? Sapiente vitae itaque libero perspiciatis nemo, minima cupiditate quia. Molestias veritatis possimus sint porro quae molestiae, exercitationem facere vero.
-                Laborum animi nesciunt porro dolor veritatis harum nobis enim, laboriosam dicta magnam sit neque voluptatum aliquam error consequuntur obcaecati odit iusto eveniet molestias corrupti facere delectus! Ducimus aliquid explicabo magni!
-                Laudantium temporibus consectetur, cumque tenetur pariatur deleniti.
-            </p>
+            <footer className="landing-footer">
+                <hr />
+                <div className="footer-content">
+                    <img src={logo} alt="TDBO Logo" className="footer-logo" />
+                    <div className="footer-links">
+                        <Link to="/login">Iniciar sesión</Link>
+                        <Link to="/register">Registro</Link>
+                    </div>
+                </div>
+            </footer>
         </div>
     );
 };
