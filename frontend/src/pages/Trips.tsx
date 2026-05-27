@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuthContext } from "../context/AuthContext.tsx";
 import { useTrips, type Member } from "../hooks/useTrips.ts";
+import calendar from "../assets/calendar.svg";
 
 type GroupForm = {
   group_name: string;
@@ -75,7 +76,7 @@ const Trips = () => {
       <div className="page-header">
         <h2 className="page-title">Mis Viajes</h2>
         <p className="page-subtitle">
-          Crea tus viajes grupales, selecciona uno como activo y gestiona a sus participantes.
+          ¿Con ganas de realizar ese viaje con tus amigos? Crea y gestiona aquí tus grupos.
         </p>
       </div>
 
@@ -89,7 +90,7 @@ const Trips = () => {
           {/* COLUMNA IZQUIERDA: LISTA Y CREACIÓN DE VIAJES */}
           <div className={`left-column${showPanel ? " hidden" : ""}`}>
             <div className="section-header">
-              <h3 className="section-title">Tus Grupos de Viaje</h3>
+              <h3 className="section-title"></h3>
               <button
                 type="button"
                 onClick={() => setOpen((v) => !v)}
@@ -168,7 +169,7 @@ const Trips = () => {
                     >
                       <div>
                         <h4 className="card-title">{trip.group_name}</h4>
-                        <p className="card-subtitle">📅 {trip.trip_starts} hasta {trip.trip_ends}</p>
+                        <p className="card-subtitle"><img src={calendar} alt="calendar" /> {trip.trip_starts} hasta {trip.trip_ends}</p>
                       </div>
                     </div>
                   );

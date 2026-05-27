@@ -452,30 +452,114 @@ h2 {
 
 /* =============== TRIPS PAGE =============== */
 
+.invite-copy-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+  max-height: 2rem;
+}
 
-.btn-secondary {
-  display: block;
-  padding: 0.5rem 1rem;
+.invite-link-input {
+  font-size: 0.8rem;
+
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  cursor: text;
+  text-overflow: ellipsis;
   border-radius: 8px;
-  border: none;
-  background: var(--light-green);
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
+}
+
+.btn-secondary,
+.btn-copy-link,
+.btn-join-action {
+  position: relative;
+  display: block;
+  width: fit-content;
+  padding: 0.7rem 1.2rem;
   margin-bottom: 1.5rem;
+  border: 0.18rem solid var(--green);
+  border-radius: 0.8rem;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  background: var(--green);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
 
   &:hover:not(:disabled) {
     opacity: 0.9;
   }
+
+  &::after {
+    position: absolute;
+    content: '';
+    top: -2.5rem;
+    left: -3.5rem;
+    width: 3rem;
+    height: 8rem;
+    transform: rotate(-30deg);
+    background-color: var(--light-green);
+    transition: all 0.3s ease;
+  }
+
+  &:hover {
+    border: 0.18rem solid var(--dark-green);
+    color: var(--dark-green);
+    background: transparent;
+    transform: scale(1.05);
+
+    &::after {
+      left: 14rem;
+    }
+  }
 }
+
+.btn-copy-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.btn-join-action {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 0.95rem;
+  border-radius: 0.8rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+
+  &::after {
+    left: -5.5rem;
+  }
+
+  &:hover {
+
+    &::after {
+      left: 24rem;
+    }
+  }
+}
+
+button:nth-of-type(2).btn-join-action {
+  background: var(--white);
+  color: var(--green);
+
+  &:hover {
+    transform: none;
+  }
+}
+
+
 
 .side-panel {
   .btn-secondary {
     display: none;
   }
 }
-
 
 .member-list {
   .member-avatar {
@@ -514,6 +598,34 @@ h2 {
     background: var(--secondary-terracota);
   }
 }
+
+/* =============== INVITATION PAGE =============== */
+
+.success-emoji,
+.error-emoji,
+.invite-emoji {
+  font-size: 3.5rem;
+  display: inline-block;
+  animation: bounce 2s infinite;
+
+  img {
+    width: 4rem;
+  }
+}
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+
 
 @media (max-width: 768px) {
   div .dashboard-grid {

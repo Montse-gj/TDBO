@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext.tsx";
 import "../styles/dashboard.css";
+import mochila from "../assets/mochila.svg";
+import confeti from "../assets/confeti.svg";
 
 export const JoinTripPage = () => {
   const { tripId } = useParams<{ tripId: string }>();
@@ -109,14 +111,14 @@ export const JoinTripPage = () => {
       <div className="join-trip-card">
         {success ? (
           <div className="status-flow success">
-            <span className="success-emoji">🎉</span>
+            <span className="success-emoji"><img src={confeti} alt="confeti" /></span>
             <h2>¡Te has unido con éxito!</h2>
             <p>Ya eres miembro del viaje <strong>{groupName || "seleccionado"}</strong>.</p>
             <p className="redirect-note">Redirigiéndote al panel de viajes...</p>
           </div>
         ) : (
           <div className="status-flow invite-prompt">
-            <span className="invite-emoji">🎒</span>
+            <span className="invite-emoji"><img src={mochila} alt="mochila" /> </span>
             <div className="invite-badge">Invitación de Viaje</div>
             <h1>¿Quieres unirte al viaje?</h1>
 
