@@ -1,7 +1,19 @@
 const Home = () => {
     return (
-        <div>
-            <h2>Landing</h2>
+        <div id="home">
+            <div className="hero-section">
+                <h1><span>Cuentas <span>simples...</span></span>
+                    <img src="../src/assets/hero-friends.webp" alt="TDBO hace más sencillas las cuentas de tus viajes" />
+                    <span>...Viajes <span>inolvidables.</span></span></h1>
+            </div>
+            <div className="subclaim">
+                <h2>Disfruta <span> con tu gente</span><br />divide gastos <span>sin dramas</span></h2>
+            </div>
+            <p>Organizar las cuentas de tus viajes nunca ha sido tan sencillo. Comparte los gastos con tus amigos y deja de perseguir Bizums (porque eso nunca fue una opción).</p>
+
+
+
+
             <p>Linguam latinam ego non loquo</p>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum nesciunt placeat architecto dolores nihil veritatis quo in sed exercitationem eum quis, dolore blanditiis nemo, officia earum dolor eaque suscipit atque?
                 Aperiam iste fuga aliquid repudiandae. Adipisci facilis deleniti minima minus saepe, neque nulla in vitae laborum nemo, aut veritatis voluptatem quidem eligendi dolor fuga eaque quia ipsa ex nesciunt! Sed?

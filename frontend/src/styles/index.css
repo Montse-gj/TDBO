@@ -44,11 +44,11 @@
   --light-yellow: #efea5f;
   --yellow: #e1df44;
   --red: #C96A63;
-  --secondary-orange: #D9A46E;
+  --secondary-orange: #e09557;
   --secondary-purple: #9A86AD;
   --secondary-blue: #5F84A2;
   --secondary-brown: #8A6A52;
-  --secondary-pink: #B7848C;
+  --secondary-pink: #c67581;
   --secondary-terracotta: #B96F5B;
   --montserrat: 'Montserrat', sans-serif;
   --fredoka: 'Fredoka', sans-serif;
@@ -77,9 +77,103 @@ body {
   padding: 1rem;
 }
 
-h1 {
+h1,
+h2 {
   font-family: var(--montserrat);
+  color: var(--green);
 }
+
+h2 {
+  font-size: 2rem;
+  ;
+  font-weight: 800;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  span {
+    font-weight: 900;
+    color: var(--light-green);
+  }
+}
+
+/* =============== HOME PAGE =============== */
+
+#home {
+
+  .hero-section {
+    position: relative;
+    width: 100%;
+    height: 100dvh;
+    margin-top: 1rem;
+    aspect-ratio: 2700 / 1019;
+
+    h1 {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 auto;
+      font-weight: 700;
+      font-size: clamp(1.2rem, 0.183rem + 4.423vw, 2.5rem);
+      text-transform: uppercase;
+
+      img {
+        position: relative;
+        width: 100%;
+        border-radius: clamp(1.5rem, 0.837rem + 2.885vw, 3rem);
+        border-left: clamp(0.3rem, 0.079rem + 0.962vw, 0.8rem) solid var(--yellow);
+        border-bottom: clamp(0.3rem, 0.079rem + 0.962vw, 0.8rem) solid var(--yellow);
+      }
+
+
+      >span:nth-of-type(1),
+      >span:nth-of-type(2) {
+        display: block;
+        width: 100%;
+        position: relative;
+
+        z-index: 2;
+
+        span {
+          font-weight: 900;
+          color: var(--light-green);
+          text-transform: uppercase;
+          letter-spacing: 0.15rem;
+        }
+      }
+
+      >span:nth-of-type(1) {
+        left: clamp(1.5rem, 0.837rem + 2.885vw, 3rem);
+        text-align: left;
+      }
+
+      >span:nth-of-type(2) {
+        right: clamp(1rem, 0.115rem + 3.846vw, 3rem);
+        text-align: right;
+      }
+    }
+  }
+
+  .subclaim {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50dvh;
+    padding: 2rem;
+
+    h2 {
+      font-size: 3rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      height: auto;
+    }
+  }
+}
+
 
 /* =============== REGISTER/LOGIN PAGE =============== */
 
