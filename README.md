@@ -68,13 +68,22 @@ cp .env.example .env
 Ejemplo de configuración:
 
 ```env
-DB_NAME=tdbo-db
+# DB
 DB_USER=tu_usuario
 DB_PASS=tu_contraseña
-DB_HOST=db
 DB_PORT=5432
+DB_NAME=tdbo-db
+DB_HOST=db
+
+# App
 APP_PORT=3000
+FRONT_PORT=5173
+
+# Auth
 JWT_SECRET=una_clave_secreta_muy_larga
+
+# Frontend Vite
+VITE_API_URL=http://localhost:3000
 ```
 
 

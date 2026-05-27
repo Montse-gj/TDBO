@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import db from "../models/index.ts";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 // Interfaz que define la estructura de los datos que vamos a guardar dentro del Token JWT
