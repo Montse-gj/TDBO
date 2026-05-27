@@ -79,11 +79,13 @@ DB_HOST=db
 APP_PORT=3000
 FRONT_PORT=5173
 
+# Admin
+ADMIN_USERNAME=admin
+ADMIN_EMAIL=admin@tdbo.com
+ADMIN_PASSWORD=contraseña_usuario_admin
+
 # Auth
 JWT_SECRET=una_clave_secreta_muy_larga
-
-# Frontend Vite
-VITE_API_URL=http://localhost:3000
 ```
 
 
