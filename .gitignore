@@ -89,4 +89,4 @@ yarn-error.log*
 *.zip
 .vite 
 docker-compose.override.yml
-/tdbo.sh
+tdbo.sh

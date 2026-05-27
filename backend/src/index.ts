@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import express from 'express';
 import { checkDB, syncDB } from "./config/db.ts";
 import models from "./models/index.ts";
@@ -7,8 +7,11 @@ import routes from "./routes/routes.ts";
 import cors from "cors";
 import { swaggerSpec, swaggerUiOptions } from './config/swagger.ts'
 import swaggerUi from 'swagger-ui-express'
+import path from 'path';
 
-const PORT = process.env.APP_PORT || 3000;
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+
+const PORT = process.env.APP_PORT;
 const app = express();
 
 app.use(express.json());
