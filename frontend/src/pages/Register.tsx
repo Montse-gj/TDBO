@@ -18,7 +18,12 @@ export const Register = () => {
 
     useEffect(() => {
         if (user) {
-            navigate("/");
+            const pendingGroupId = localStorage.getItem("pendingJoinGroupId");
+            if (pendingGroupId) {
+                navigate(`/join-trip/${pendingGroupId}`);
+            } else {
+                navigate("/trips");
+            }
         }
     }, [user, navigate]);
 
@@ -43,50 +48,53 @@ export const Register = () => {
 
     return (
         <>
-           
-            <div className="">
-                <div className="">
-                    <h1>Registrarse</h1>
+            <div className="register-wrapper">
+                <div className="register-form">
+                    <h1><span>Re</span><span>gis</span><span>tro</span></h1>
                     {displayError && <p>{displayError}</p>}
                     <form onSubmit={handleSubmit}>
                         <div className="">
                             <label htmlFor="name">Nombre:</label>
-                            <input type="text" id="name" value={name} onChange={(e) => {
+                            <input type="text" id="name" placeholder="Alicia Rodríguez" value={name} onChange={(e) => {
                                 setName(e.target.value)
                                 setLocalError("")
-                                }} 
+                            }}
                                 disabled={loading} />
                         </div>
                         <div className="">
                             <label htmlFor="email">Email:</label>
-                            <input type="email" id="email" value={email} onChange={(e) => {
+                            <input type="email" id="email" placeholder="tuemail@ejemplo.com" value={email} onChange={(e) => {
                                 setEmail(e.target.value)
                                 setLocalError("")
-                                }} 
+                            }}
                                 disabled={loading} />
                         </div>
                         <div className="">
                             <label htmlFor="password">Contraseña:</label>
-                            <input type="password" id="password" value={password} onChange={(e) => {
+                            <input type="password" id="password" placeholder="Algo que recuerdes" value={password} onChange={(e) => {
                                 setPassword(e.target.value)
-                            setLocalError("")
+                                setLocalError("")
                             }}
-                            disabled={loading} />
+                                disabled={loading} />
                         </div>
                         <div className="">
                             <label htmlFor="confirmPassword">Confirmar contraseña:</label>
-                            <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => {
+                            <input type="password" id="confirmPassword" placeholder="Repite la contraseña" value={confirmPassword} onChange={(e) => {
                                 setConfirmPassword(e.target.value)
-                            setLocalError("")
+                                setLocalError("")
                             }}
-                            disabled={loading} />
+                                disabled={loading} />
                         </div>
                         <button className="" type="submit" disabled={loading}>Registro</button>
-                       </form> 
                         <p>
                             ¿Ya tienes una cuenta? <Link to="/login">Inicia sesión</Link>
                         </p>
-                    
+                    </form>
+                </div>
+                <div className="image-wrapper">
+                    <div>
+                        <img src="../src/assets/smiling-people.webp" alt="Happy people who are going to sign up on the TDBO website" />
+                    </div>
                 </div>
             </div>
         </>

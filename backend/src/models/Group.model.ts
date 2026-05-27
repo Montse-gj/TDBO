@@ -19,7 +19,8 @@ export default (sequelize: Sequelize) => {
             },
             group_name: {
                 type: DataTypes.STRING(89),
-                allowNull: false
+                allowNull: false,
+                defaultValue: 'Nuevo grupo'
             },
             created_by: {
                 type: DataTypes.STRING(89),

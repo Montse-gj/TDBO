@@ -52,6 +52,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 setError(data.error);
             }
         } catch (error) {
+            console.error(error);
             setError("Error al iniciar sesión");
         }
         setLoading(false);
@@ -60,7 +61,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch("api/auth/register",
+            const response = await fetch("/api/auth/register",
                 {
                     method: "POST",
                     headers: {
@@ -74,7 +75,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             } else {
                 setError(data.error);
             }
-        } catch (error) {
+        } catch {
             setError("Error al registrar el usuario");
         }
         setLoading(false);
@@ -84,6 +85,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setToken(null);
         localStorage.removeItem("user");
         localStorage.removeItem("token");
+        localStorage.removeItem("activeGroupId");
+        localStorage.removeItem("activeGroupName");
         setError(null);
     };
 
@@ -105,6 +108,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuthContext = () => {
     const context = useContext(AuthContext);
     if (context === undefined) {
