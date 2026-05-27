@@ -32,7 +32,7 @@ services:
       - "${APP_PORT}:${APP_PORT}"
     volumes:
       - ./backend:/app
-      - backend_node_modules:/app/node _modules
+      - backend_node_modules:/app/node_modules
     networks:
       - tdbo-be-nw
       - tdbo-fe-nw
