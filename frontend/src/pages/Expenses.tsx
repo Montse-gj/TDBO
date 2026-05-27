@@ -3,6 +3,7 @@ import { useTrips } from "../hooks/useTrips.ts";
 import { useExpenses } from "../hooks/useExpenses.ts";
 import type { SplitEntry } from "../hooks/useExpenses.ts";
 import { useAuthContext } from "../context/AuthContext.tsx";
+import peligro from "../assets/peligro.svg";
 
 type SplitMode = "equal" | "custom";
 
@@ -217,7 +218,7 @@ const Expenses = () => {
 
       {!activeGroupId ? (
         <div className="alert-warning">
-          <span className="alert-icon">⚠️</span>
+          <span className="alert-icon"><img src={peligro} alt="peligro" /></span>
           <h4>Ningún viaje activo seleccionado</h4>
           <p>
             Por favor, ve a la pestaña de <strong>Viajes</strong> para crear uno
