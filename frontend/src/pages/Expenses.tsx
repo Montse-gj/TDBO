@@ -3,7 +3,6 @@ import { useTrips } from "../hooks/useTrips.ts";
 import { useExpenses } from "../hooks/useExpenses.ts";
 import type { SplitEntry } from "../hooks/useExpenses.ts";
 import { useAuthContext } from "../context/AuthContext.tsx";
-import "../styles/dashboard.css";
 
 type SplitMode = "equal" | "custom";
 
@@ -24,9 +23,9 @@ const Expenses = () => {
     amount: Number(exp.amount),
     splits: Array.isArray(exp.splits)
       ? exp.splits.map((split) => ({
-          ...split,
-          amount: Number(split.amount),
-        }))
+        ...split,
+        amount: Number(split.amount),
+      }))
       : [],
   }));
 
@@ -99,9 +98,9 @@ const Expenses = () => {
     const splitEntries: SplitEntry[] | undefined =
       form.splitMode === "custom"
         ? members.map((m) => ({
-            user_id: m.user_id,
-            amount: parseFloat(customSplits[m.user_id] || "0"),
-          }))
+          user_id: m.user_id,
+          amount: parseFloat(customSplits[m.user_id] || "0"),
+        }))
         : undefined;
 
     const ok = await createExpense(
@@ -185,9 +184,9 @@ const Expenses = () => {
     const splitEntries: SplitEntry[] | undefined =
       editForm.splitMode === "custom"
         ? members.map((m) => ({
-            user_id: m.user_id,
-            amount: parseFloat(editCustomSplits[m.user_id] || "0"),
-          }))
+          user_id: m.user_id,
+          amount: parseFloat(editCustomSplits[m.user_id] || "0"),
+        }))
         : undefined;
 
     const ok = await updateExpense(editingId!, {

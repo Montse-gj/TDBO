@@ -1,9 +1,8 @@
 import { useAuthContext } from "../context/AuthContext.tsx";
 import { useTrips } from "../hooks/useTrips.ts";
 import { useBalances } from "../hooks/useBalances.ts";
-import "../styles/dashboard.css";
 
-const Page5 = () => {
+const Balance = () => {
   const { user } = useAuthContext();
   const { activeGroupId, activeGroupName } = useTrips();
   const { balances, loading, error, loadBalances } = useBalances(activeGroupId);
@@ -158,4 +157,4 @@ const Page5 = () => {
   );
 };
 
-export default Page5;
+export default Balance;

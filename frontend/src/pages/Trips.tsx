@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useAuthContext } from "../context/AuthContext.tsx";
 import { useTrips, type Member } from "../hooks/useTrips.ts";
-import "../styles/dashboard.css";
 
 type GroupForm = {
   group_name: string;
@@ -12,6 +11,7 @@ type GroupForm = {
 const Trips = () => {
   const { user, token } = useAuthContext();
   const [open, setOpen] = useState(false);
+  const [showPanel, setShowPanel] = useState(false);
 
   const {
     trips,
@@ -87,7 +87,7 @@ const Trips = () => {
         <div className="dashboard-grid">
 
           {/* COLUMNA IZQUIERDA: LISTA Y CREACIÓN DE VIAJES */}
-          <div className="left-column">
+          <div className={`left-column${showPanel ? " hidden" : ""}`}>
             <div className="section-header">
               <h3 className="section-title">Tus Grupos de Viaje</h3>
               <button
@@ -160,16 +160,16 @@ const Trips = () => {
                   return (
                     <div
                       key={trip.group_id}
-                      onClick={() => selectTrip(trip)}
                       className={`list-card trip-card${isActive ? " active" : ""}`}
+                      onClick={() => {
+                        selectTrip(trip);
+                        setShowPanel(true);
+                      }}
                     >
                       <div>
                         <h4 className="card-title">{trip.group_name}</h4>
                         <p className="card-subtitle">📅 {trip.trip_starts} hasta {trip.trip_ends}</p>
                       </div>
-                      <span className="trip-badge">
-                        {isActive ? "Viaje Activo" : "Seleccionar"}
-                      </span>
                     </div>
                   );
                 })}
@@ -178,7 +178,19 @@ const Trips = () => {
           </div>
 
           {/* COLUMNA DERECHA: MIEMBROS E INVITACIONES */}
-          <div className="side-panel">
+          <div className={`side-panel${showPanel ? " visible" : ""}`}>
+
+            {/* BOTÓN VOLVER — SOLO VISIBLE CUANDO HAY VIAJE ACTIVO */}
+            {activeGroupId && (
+              <button
+                type="button"
+                className="btn-secondary"
+                onClick={() => setShowPanel(false)}
+              >
+                ← Volver a mis viajes
+              </button>
+            )}
+
             {!activeGroupId ? (
               <div className="panel-empty">
                 <span className="emoji">🎒</span>

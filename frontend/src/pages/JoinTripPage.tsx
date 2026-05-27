@@ -119,7 +119,7 @@ export const JoinTripPage = () => {
             <span className="invite-emoji">🎒</span>
             <div className="invite-badge">Invitación de Viaje</div>
             <h1>¿Quieres unirte al viaje?</h1>
-            
+
             {errorMsg ? (
               <div className="msg-error-display">
                 <p>{errorMsg}</p>
@@ -132,18 +132,18 @@ export const JoinTripPage = () => {
                 <p className="invite-desc">
                   Has sido invitado a participar en <strong>{groupName || "este viaje"}</strong> en TDBO para compartir gastos y balances.
                 </p>
-                
+
                 <div className="action-buttons" style={{ marginTop: "1.5rem" }}>
-                  <button 
-                    onClick={handleConfirmJoin} 
-                    disabled={joining} 
+                  <button
+                    onClick={handleConfirmJoin}
+                    disabled={joining}
                     className="btn-primary btn-join-action"
                   >
                     {joining ? "Uniéndote..." : "Confirmar y Unirme"}
                   </button>
-                  <button 
-                    onClick={() => navigate("/trips")} 
-                    disabled={joining} 
+                  <button
+                    onClick={() => navigate("/trips")}
+                    disabled={joining}
                     className="btn-outline btn-join-action"
                   >
                     Cancelar
