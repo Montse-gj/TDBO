@@ -47,8 +47,7 @@ TDBO/
 
 ### Requisitos previos
 
-- Docker Desktop instalado y en ejecución.
-- Git instalado.
+- git instalado.
 
 
 ### 1. Clonar el repositorio
