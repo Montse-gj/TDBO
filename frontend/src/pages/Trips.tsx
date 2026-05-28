@@ -252,7 +252,7 @@ const Trips = () => {
                               type="button"
                               onClick={() => handleInviteMember(su)}
                               disabled={inviteLoading}
-                              className="btn-secondary btn-small"
+                              className="btn-small"
                             >
                               Agregar
                             </button>
