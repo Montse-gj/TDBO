@@ -113,6 +113,10 @@ Todos los endpoints protegidos requieren la cabecera:
 Authorization: Bearer <token>
 ```
 
+Se pueden probar los endpoints con Swagger en la dirección raíz del backend. Por defecto:
+```
+http://localhost:3000
+```
 
 ### Autenticación `/api/auth`
 
