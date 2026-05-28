@@ -63,7 +63,7 @@ export const Register = () => {
                         </div>
                         <div className="">
                             <label htmlFor="email">Email:</label>
-                            <input type="email" id="email" placeholder="tuemail@ejemplo.com" value={email} onChange={(e) => {
+                            <input type="email" id="email" autoComplete="username" placeholder="tuemail@ejemplo.com" value={email} onChange={(e) => {
                                 setEmail(e.target.value)
                                 setLocalError("")
                             }}
@@ -71,7 +71,7 @@ export const Register = () => {
                         </div>
                         <div className="">
                             <label htmlFor="password">Contraseña:</label>
-                            <input type="password" id="password" placeholder="Algo que recuerdes" value={password} onChange={(e) => {
+                            <input type="password" autoComplete="current-password" id="password" placeholder="Algo que recuerdes" value={password} onChange={(e) => {
                                 setPassword(e.target.value)
                                 setLocalError("")
                             }}
@@ -79,7 +79,7 @@ export const Register = () => {
                         </div>
                         <div className="">
                             <label htmlFor="confirmPassword">Confirmar contraseña:</label>
-                            <input type="password" id="confirmPassword" placeholder="Repite la contraseña" value={confirmPassword} onChange={(e) => {
+                            <input type="password" autoComplete="current-password" id="confirmPassword" placeholder="Repite la contraseña" value={confirmPassword} onChange={(e) => {
                                 setConfirmPassword(e.target.value)
                                 setLocalError("")
                             }}

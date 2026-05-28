@@ -46,7 +46,7 @@ export const Login = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="">
                             <label htmlFor="email">Email:</label>
-                            <input type="email" id="email" placeholder="tuemail@ejemplo.com" value={email} onChange={(e) => {
+                            <input type="email" id="email" autoComplete="username" placeholder="tuemail@ejemplo.com" value={email} onChange={(e) => {
                                 setEmail(e.target.value)
                                 setLocalError("")
                             }}
@@ -54,7 +54,7 @@ export const Login = () => {
                         </div>
                         <div className="">
                             <label htmlFor="password">Password:</label>
-                            <input type="password" id="password" placeholder="la palabra que recuerdas" value={password} onChange={(e) => {
+                            <input type="password" autoComplete="current-password" id="password" placeholder="la palabra que recuerdas" value={password} onChange={(e) => {
                                 setPassword(e.target.value)
                                 setLocalError("")
                             }}
