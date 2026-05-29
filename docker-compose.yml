@@ -1,0 +1,71 @@
+services:
+
+  db:
+    image: postgres:latest
+    container_name: tdbo-db
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    ports:
+      # tbr
+      - ${DB_PORT}:5432 # tbr
+    restart: unless-stopped
+    networks:
+      - tdbo-be-nw
+    volumes:
+      - ./backend/db/data:/var/lib/postgresql/18/docker
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  back:
+    build: ./backend
+    container_name: tdbo-back
+    command: npm run dev
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgres://${DB_USER}:${DB_PASS}@db:5432/${DB_NAME}
+      PORT: 3000
+    ports:
+      - ${APP_PORT}:3000
+    volumes:
+      - ./backend:/app
+      - node_modules:/app/node_modules
+    networks:
+      - tdbo-be-nw
+      - tdbo-fe-nw
+    depends_on:
+      db:
+        condition: service_healthy
+
+  front:
+    build: ./frontend
+    container_name: tdbo-front
+    command: npm run dev -- --host 0.0.0.0 --port 5173
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+    networks:
+      - tdbo-fe-nw
+    depends_on:
+      - back
+
+networks:
+  tdbo-be-nw:
+    driver: bridge
+    name: tdbo-be-nw
+  tdbo-fe-nw:
+    driver: bridge
+    name: tdbo-fe-nw
+
+volumes:
+  node_modules:
+  frontend_node_modules:
